@@ -7,7 +7,7 @@ import Footer from '../Footer/Footer.jsx';
 function About() {
   return ( 
     <>
-      <section className="overflow-hidden mt-[20px]">
+      <section className="overflow-hidden ">
         <div className="relative w-full h-[400px] flex items-center justify-start text-left text-white px-5 md:px-10">
           <img
             src="https://real-estate-website-sepia.vercel.app/static/media/about.b7b4b35551e7763eebae.jpg"
