@@ -84,24 +84,22 @@ const PropertyListingPage = () => {
   });
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold  text-blue-950 mt-3 mb-4">Property Listings</h1>
-        <p className="text-lg text-gray-600">Find your dream property here.</p>
-      </div>
+    <div className="container mx-auto px-4 pt-24 md:py-28 "> {/* Increased the padding-top */}
+      {/* <div className="text-center mb-10"> 
+      </div> */}
 
       {/* Search and Filter Section */}
-      <div className="flex flex-col md:flex-row gap-4 mb-8">
+      <div className="flex flex-col md:flex-row gap-6 mb-10"> {/* Increased gap between search and filter */}
         <input
           type="text"
           placeholder="Search by name or location"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+          className="w-full px-4 py-3 border  border-gray-300 rounded-lg"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
 
         <select
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+          className="w-full px-4 py-3 border dark:text-black border-gray-300 rounded-lg"
           value={filterType}
           onChange={(e) => setFilterType(e.target.value)}
         >

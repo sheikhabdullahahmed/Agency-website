@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { BiMenuAltRight } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import logo from "../../assets/real.png";
+import Logo from '../../Logo/loo';
 
-function Navbar() {
+function Navbar({ darkMode, darkModeToggle }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+  // Handle window resize
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
@@ -23,41 +24,55 @@ function Navbar() {
   const menuToggleHandler = () => setMenuOpen((prev) => !prev);
 
   return (
-    <header className="bg-green-500 text-white w-full py-4 md:px-8    fixed top-0 left-0 z-50 shadow-md">
-      <div className="max-w-7xl mx-auto flex    justify-between  items-center">
-        <a href="" className="flex  font-bold text-2xl ">
-          GharDekho
-        </a>
+    <header
+      className={`w-full py-4 fixed top-0 left-0 z-50 shadow-lg transition-colors duration-300 ${
+        darkMode ? "bg-gray-900 text-white" : "bg-green-600 text-white"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 flex justify-between  items-center">
+        {/* Logo */}
+        <Logo />
 
         {/* Navigation Menu */}
         <nav
-          className={`absolute top-16 left-0 w-full transition-transform transform ${menuOpen ? "translate-x-0 bg-white text-black" : "-translate-x-full bg-transparent"
-            } md:static md:flex md:w-auto md:translate-x-0 md:bg-transparent`}
+          className={`absolute top-full left-0 w-full md:w-auto transition-all duration-300 ease-in-out md:static md:flex md:space-x-10 md:items-center md:p-0 ${
+            menuOpen
+              ? "translate-x-0 bg-white text-gray-800 shadow-md md:bg-transparent md:text-white"
+              : "-translate-x-full md:translate-x-0"
+          }`}
         >
-          <ul className="flex font-semibold    flex-col md:flex-row md:space-x-6 items-center text-lg md:text-base">
+          <ul className="flex flex-col md:flex-row md:space-x-10 items-center text-lg font-semibold p-4 md:p-0">
             <li>
-              <Link to="/" className="block py-2 px-4 hover:text-blue-400" onClick={() => setMenuOpen(false)}>
+              <Link
+                to="/"
+                className="relative block py-2 px-4 hover:text-blue-400 transition-colors duration-200"
+                onClick={() => setMenuOpen(false)}
+              >
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/about" className="block py-2 px-4 hover:text-blue-400" onClick={() => setMenuOpen(false)}>
+              <Link
+                to="/about"
+                className="block py-2 px-4 hover:text-blue-400 transition-colors duration-200"
+                onClick={() => setMenuOpen(false)}
+              >
                 About
               </Link>
             </li>
             <li>
               <Link
                 to="/propertylistings"
-                className="block py-2 px-4 "
+                className="block py-2 px-4 hover:text-blue-400 transition-colors duration-200"
                 onClick={() => setMenuOpen(false)}
               >
-                Listing
+                Listings
               </Link>
             </li>
             <li>
               <Link
                 to="/blogPage"
-                className="block py-2 px-4    "
+                className="block py-2 px-4 hover:text-blue-400 transition-colors duration-200"
                 onClick={() => setMenuOpen(false)}
               >
                 Blogs
@@ -66,9 +81,25 @@ function Navbar() {
           </ul>
         </nav>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden text-3xl cursor-pointer" onClick={menuToggleHandler}>
-          {menuOpen ? <AiOutlineClose /> : <BiMenuAltRight />}
+        {/* Right Section: Button and Dark Mode Toggle */}
+        <div className="flex items-center space-x-4">
+          {/* Dark Mode Toggle */}
+          <button
+            onClick={darkModeToggle}
+            className={`md:w-16 w-4  mr-2 md:h-16 md:mr-9 rounded-full text-3xl transition-colors duration-200 ${
+              darkMode ? "text-white" : "text-gray-800"
+            }`}
+          >
+            {darkMode ? "🌙" : "☀️"}
+          </button>
+
+          {/* Mobile Menu Toggle Button */}
+          <div
+            className="md:hidden text-3xl cursor-pointer p-2"
+            onClick={menuToggleHandler}
+          >
+            {menuOpen ? <AiOutlineClose /> : <BiMenuAltRight />}
+          </div>
         </div>
       </div>
     </header>

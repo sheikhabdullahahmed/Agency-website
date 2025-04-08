@@ -1,37 +1,70 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from './Components/Navbar/Navbar'; 
-import Hero from './Components/Hero/Hero';
-import About from './Components/About/About';
-import Product from './Components/Product/Products';
-import BlogPage from './Components/Blog/index'
+import { useState, useEffect } from "react";
+import Navbar from "./Components/Navbar/Navbar";
+import Hero from "./Components/Hero/Hero";
+import About from "./Components/About/About";
+import Product from "./Components/Product/Products";
+import Services from "./Components/Service/Services";
+// import BlogPage from "./Components/Blog/index";
 import PropertyDetailsPage from "./PropertyDetailsPage";
-// import Footer from "./Components/Footer/Footer"; 
-// import Number from './Components/2number/index'
 
-const Layout = ({ children }) => {
-  return (
-    <>
-    <Navbar/>
-      {/* <Navbar /> */}
-      <div style={{ paddingTop: "60px" }}> {/* Adjust the padding based on your Navbar height */}
-        {children}
-      </div>
-    </>
-  );
-};
+const Layout = ({ children, darkMode, darkModeToggle }) => (
+  <>
+    <Navbar darkMode={darkMode} darkModeToggle={darkModeToggle} />
+    <div className={`transition-all ${darkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
+      {children}
+    </div>
+  </>
+);
 
 function App() {
+  const [darkMode, setDarkMode] = useState(false);
+
+  // Set dark mode class on the body element
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }, [darkMode]);
+
+  const darkModeToggle = () => setDarkMode((prev) => !prev);
+
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout><Hero /></Layout>} />
-        <Route path="/about" element={<Layout><About /></Layout>} />
-        <Route path="/propertylistings" element={<Layout><Product /></Layout>} />
-        <Route path="/property/:id" element={<PropertyDetailsPage />} />
-        {/* <Route path="/service" element={<Layout><Service /></Layout>} /> */}
-        <Route path="/blogPage" element={<Layout><BlogPage /></Layout>} />
-         
-      </Routes>
+      <div className={`min-h-screen ${darkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
+        <Routes>
+          <Route
+            path="/"
+            element={<Layout darkMode={darkMode} darkModeToggle={darkModeToggle}><Hero /></Layout>}
+          />
+          <Route
+            path="/about"
+            element={<Layout darkMode={darkMode} darkModeToggle={darkModeToggle}><About /></Layout>}
+          />
+          <Route
+            path="/propertylistings"
+            element={<Layout darkMode={darkMode} darkModeToggle={darkModeToggle}><Product /></Layout>}
+          />
+          <Route
+            path="/property/:id"
+            element={<PropertyDetailsPage />}
+          />
+          <Route
+            path="/blogPage"
+            element={<Layout darkMode={darkMode} darkModeToggle={darkModeToggle}><Services /></Layout>}
+          />
+        </Routes>
+
+        {/* Dark Mode Toggle Button */}
+        <button
+          onClick={darkModeToggle}
+          className="fixed bottom-4 right-4 p-3 bg-black dark:bg-white text-white dark:bg-black rounded-full shadow-lg"
+        >
+          {darkMode ? "🌙" : "☀️"}
+        </button>
+      </div>
     </BrowserRouter>
   );
 }

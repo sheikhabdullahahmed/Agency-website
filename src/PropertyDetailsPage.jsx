@@ -1,7 +1,6 @@
-import React from 'react';
+import  { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
-import Navbar from './Components/Navbar/Navbar';
+import Navbar from './Components/Navbar/Navbar.jsx';
 import Footer from './Components/Footer/Footer';
 
 const properties = [
@@ -60,6 +59,7 @@ const properties = [
     description: 'A peaceful farmhouse retreat with vast green fields, ideal for nature lovers and relaxation.'
   }
 ];
+
 const PropertyDetailsPage = () => {
   const { id } = useParams();
   const property = properties.find(prop => prop.id === parseInt(id));
@@ -75,17 +75,26 @@ const PropertyDetailsPage = () => {
     message: ''
   });
 
+  // Disable scrolling when the modal is open
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden'; // Disable body scrolling
+    } else {
+      document.body.style.overflow = 'auto'; // Enable body scrolling
+    }
+    return () => {
+      document.body.style.overflow = 'auto'; // Cleanup when component unmounts or modal closes
+    };
+  }, [isModalOpen]);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
 
-  // Close the modal
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
 
-  // Handle form input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -103,8 +112,8 @@ const PropertyDetailsPage = () => {
   return (
     <div>
       <Navbar />
-      <div className=" flex items-center justify-center min-h-screen container mx-auto px-4 py-8">
-        <div className="container mx-auto px-4 py-8 mt-20">
+      <div className="flex items-center justify-center min-h-screen mx-auto px-4">
+        <div className="mx-auto px-4">
           <div className="bg-white rounded shadow-lg flex flex-col lg:flex-row">
             {/* Image Left Side */}
             <img
@@ -128,8 +137,8 @@ const PropertyDetailsPage = () => {
               </button>
             </div>
           </div>
-
         </div>
+
         {isModalOpen && (
           <div className="fixed inset-0 mx-2 flex justify-center items-center bg-black bg-opacity-50">
             <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg h-auto relative">
@@ -169,13 +178,15 @@ const PropertyDetailsPage = () => {
                   ></textarea>
                 </div>
                 <div className="flex justify-between items-center">
-
-                  <button type="submit" className="px-6 py-2            transition-all duration-300 transform hover:-translate-y-1 font-semibold sm:px-7 sm:py-3 bg-green-500 text-white rounded" >
+                  <button
+                    type="submit"
+                    className="px-6 py-2 transition-all duration-300 transform hover:-translate-y-1 font-semibold sm:px-7 sm:py-3 bg-green-500 text-white rounded"
+                  >
                     More About us
                   </button>
                   {/* Close button */}
                   <button
-                    onClick={handleCloseModal}  // Close the modal when clicked
+                    onClick={handleCloseModal}
                     className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
                   >
                     Close
@@ -184,7 +195,6 @@ const PropertyDetailsPage = () => {
               </form>
             </div>
           </div>
-
         )}
       </div>
       <Footer className="mt-auto" />
