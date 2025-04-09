@@ -1,12 +1,11 @@
-import React from 'react'
-
-function Services() {
+// Components/Service/Services.js
+const Services = () => {
   return (
     <div>
-      service
-      
+      <h2 className="bg-black">Our Services</h2>
+      {/* Add content for your services */}
     </div>
-  )
-}
+  );
+};
 
-export default Services
+export default Services;

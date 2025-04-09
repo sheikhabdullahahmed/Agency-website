@@ -37,11 +37,11 @@ function Navbar({ darkMode, darkModeToggle }) {
         <nav
           className={`absolute top-full left-0 w-full md:w-auto transition-all duration-300 ease-in-out md:static md:flex md:space-x-10 md:items-center md:p-0 ${
             menuOpen
-              ? "translate-x-0 bg-white text-gray-800 shadow-md md:bg-transparent md:text-white"
+              ? "translate-x-0 bg-white h-80  text-blue-900 font-serif  shadow-md md:bg-transparent md:text-white"
               : "-translate-x-full md:translate-x-0"
           }`}
         >
-          <ul className="flex flex-col md:flex-row md:space-x-10 items-center text-lg font-semibold p-4 md:p-0">
+          <ul className="flex flex-col md:flex-row md:space-x-10 items-center  text-lg font-semibold p-4 md:p-0">
             <li>
               <Link
                 to="/"
@@ -75,7 +75,7 @@ function Navbar({ darkMode, darkModeToggle }) {
                 className="block py-2 px-4 hover:text-blue-400 transition-colors duration-200"
                 onClick={() => setMenuOpen(false)}
               >
-                Blogs
+                Services
               </Link>
             </li>
           </ul>

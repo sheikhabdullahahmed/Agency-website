@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Footer from "../Footer/Footer";
 
-
 const blogs = [
   {
     id: 1,
@@ -10,9 +9,9 @@ const blogs = [
     description: "Kupondol, Lalitpur",
     fullContent:
       "The real estate market in 2025 is expected to see major shifts due to economic trends...",
-    buttonType: "Sale", // Added to decide which button to show
-    price: "Rs: 2,500,000", // Sale price
-    rentPrice: "Rs: 15,000/month", // Rent price
+    buttonType: "Sale",
+    price: "Rs: 2,500,000",
+    rentPrice: "Rs: 15,000/month",
   },
   {
     id: 2,
@@ -21,10 +20,11 @@ const blogs = [
     description: "New Road, Kathmandu",
     fullContent:
       "Investing in real estate requires understanding different property types, market trends...",
-    buttonType: "Rent", // Added to decide which button to show
-    price: "Rs: 25,000", // Sale price (N/A because it's for rent)
-    rentPrice: "Rs: 25,000", // Rent price
+    buttonType: "Rent",
+    price: "Rs: 25,000",
+    rentPrice: "Rs: 25,000",
   },
+  
   {
     id: 3,
     title: "The Real Estate Corner",
@@ -70,107 +70,112 @@ const blogs = [
     rentPrice: "Rs : 30,000",
   },
 ];
-// const filteredProperties = blogs.filter((property) => {
-//   return (
-//     (property.name.toLowerCase().includes(search.toLowerCase()) ||
-//       property.location.toLowerCase().includes(search.toLowerCase())) &&
-//     (filterType ? property.type === filterType : true)
-//   );
-// });
-
+  // other blog entries..
 
 const BlogPage = () => {
+  // Define states for search and filter
+  const [search, setSearch] = useState("");  // For the search input
+  const [filterType, setFilterType] = useState("");  // For the dropdown filter
   const [expandedBlog, setExpandedBlog] = useState(null);
 
-  
+  // Filter the blogs based on the search input and filter type
+  const filteredBlogs = blogs.filter((blog) => {
+    const matchesSearch =
+      blog.title.toLowerCase().includes(search.toLowerCase()) ||
+      blog.description.toLowerCase().includes(search.toLowerCase());
+
+    const matchesFilterType = filterType ? blog.buttonType === filterType : true;
+
+    return matchesSearch && matchesFilterType;
+  });
 
   return (
     <div className="flex flex-col min-h-screen">
-            <div className="flex flex-col md:flex-row gap-6 mb-10"> {/* Increased gap between search and filter */}
+      <div className="flex flex-col md:flex-row gap-6 mb-10">
+        {/* Search Input */}
         <input
           type="text"
           placeholder="Search by name or location"
-          className="w-full px-4 py-3 border  border-gray-300 rounded-lg"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg"
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => setSearch(e.target.value)} // Update search state
         />
 
+        {/* Filter Dropdown */}
         <select
           className="w-full px-4 py-3 border dark:text-black border-gray-300 rounded-lg"
           value={filterType}
-          onChange={(e) => setFilterType(e.target.value)}
+          onChange={(e) => setFilterType(e.target.value)} // Update filterType state
         >
           <option value="">All Types</option>
-          <option value="House">House</option>
-          <option value="Apartment">Apartment</option>
-          <option value="Cottage">Cottage</option>
-          <option value="Villa">Villa</option>
-          <option value="Penthouse">Penthouse</option>
-          <option value="Farmhouse">Farmhouse</option>
+          <option value="Sale">Sale</option>
+          <option value="Rent">Rent</option>
         </select>
       </div>
-  <div className="container mx-auto px-4 py-12 flex-grow"> {/* Increased padding-top to 12 for better space */}
-  
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {blogs.map((blog) => (
-        <div
-          key={blog.id}
-          className="bg-white rounded shadow-lg overflow-hidden flex flex-col"
-        >
-          <img
-            src={blog.image}
-            alt={blog.title}
-            className="w-full h-48 object-cover"
-          />
-          <div className="p-4 flex flex-col flex-grow">
-            <h2 className="text-lg sm:text-xl font-semibold text-blue-950">
-              {blog.title}
-            </h2>
-            <p className="text-gray-600 mt-2 text-sm sm:text-base">
-              {expandedBlog === blog.id ? blog.fullContent : blog.description}
-            </p>
 
-            <button
-              className="mt-4 px-4 py-2 font-semibold bg-green-500 hover:text-white hover:border-0 text-white border-2 rounded w-full text-sm sm:text-base"
-              onClick={() =>
-                setExpandedBlog(expandedBlog === blog.id ? null : blog.id)
-              }
+      <div className="container mx-auto px-4 py-12 flex-grow">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Map over filtered blogs */}
+          {filteredBlogs.map((blog) => (
+            <div
+              key={blog.id}
+              className="bg-white rounded shadow-lg overflow-hidden flex flex-col"
             >
-              {expandedBlog === blog.id ? "Read Less" : "Read More"}
-            </button>
+              <img
+                src={blog.image}
+                alt={blog.title}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4 flex flex-col flex-grow">
+                <h2 className="text-lg sm:text-xl font-semibold text-blue-950">
+                  {blog.title}
+                </h2>
+                <p className="text-gray-600 mt-2 text-sm sm:text-base">
+                  {expandedBlog === blog.id ? blog.fullContent : blog.description}
+                </p>
 
-            {/* Rent and Price Buttons */}
-            <div className="mt-4 flex flex-col sm:flex-row flex-wrap gap-3">
-              {blog.buttonType === "Sale" && blog.price !== "N/A" && (
-                <>
-                  <button className="px-4 py-2 font-semibold bg-white hover:bg-green-500 hover:text-white hover:border-0 text-green-500 border-2 rounded w-full sm:w-auto text-sm sm:text-base">
-                    For Sale
-                  </button>
-                  <button className="px-4 py-2 font-semibold bg-white text-green-500 border-2 rounded w-full sm:w-auto text-sm sm:text-base hover:bg-green-500 hover:text-white hover:border-0">
-                    {blog.price}
-                  </button>
-                </>
-              )}
+                <button
+                  className="mt-4 px-4 py-2 font-semibold bg-green-500 hover:text-white hover:border-0 text-white border-2 rounded w-full text-sm sm:text-base"
+                  onClick={() =>
+                    setExpandedBlog(expandedBlog === blog.id ? null : blog.id)
+                  }
+                >
+                  {expandedBlog === blog.id ? "Read Less" : "Read More"}
+                </button>
 
-              {blog.buttonType === "Rent" && blog.rentPrice !== "N/A" && (
-                <>
-                  <button className="px-4 py-2 font-semibold bg-white text-green-500 border-2 rounded w-full sm:w-auto text-sm sm:text-base hover:bg-green-500 hover:text-white hover:border-0">
-                    For Rent
-                  </button>
-                  <button className="px-4 py-2 font-semibold bg-white text-green-500 border-2 rounded w-full sm:w-auto text-sm sm:text-base hover:bg-green-500 hover:text-white hover:border-0">
-                    {blog.rentPrice}
-                  </button>
-                </>
-              )}
+                {/* Rent and Price Buttons */}
+                <div className="mt-4 flex flex-col sm:flex-row flex-wrap gap-3">
+                  {blog.buttonType === "Sale" && blog.price !== "N/A" && (
+                    <>
+                      <button className="px-4 py-2 font-semibold bg-white hover:bg-green-500 hover:text-white hover:border-0 text-green-500 border-2 rounded w-full sm:w-auto text-sm sm:text-base">
+                        For Sale
+                      </button>
+                      <button className="px-4 py-2 font-semibold bg-white text-green-500 border-2 rounded w-full sm:w-auto text-sm sm:text-base hover:bg-green-500 hover:text-white hover:border-0">
+                        {blog.price}
+                      </button>
+                    </>
+                  )}
+
+                  {blog.buttonType === "Rent" && blog.rentPrice !== "N/A" && (
+                    <>
+                      <button className="px-4 py-2 font-semibold bg-white text-green-500 border-2 rounded w-full sm:w-auto text-sm sm:text-base hover:bg-green-500 hover:text-white hover:border-0">
+                        For Rent
+                      </button>
+                      <button className="px-4 py-2 font-semibold bg-white text-green-500 border-2 rounded w-full sm:w-auto text-sm sm:text-base hover:bg-green-500 hover:text-white hover:border-0">
+                        {blog.rentPrice}
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-      ))}
+      </div>
+
+      {/* Sticky Footer */}
+      <Footer className="mt-auto" />
     </div>
-  </div>
-    {/* Sticky Footer */}
-    <Footer className="mt-auto" />
-</div>
   );
 };
 

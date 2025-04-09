@@ -5,13 +5,17 @@ import Hero from "./Components/Hero/Hero";
 import About from "./Components/About/About";
 import Product from "./Components/Product/Products";
 import Services from "./Components/Service/Services";
-// import BlogPage from "./Components/Blog/index";
 import PropertyDetailsPage from "./PropertyDetailsPage";
+import BlogPage from "./Components/Blog";
 
 const Layout = ({ children, darkMode, darkModeToggle }) => (
   <>
     <Navbar darkMode={darkMode} darkModeToggle={darkModeToggle} />
-    <div className={`transition-all ${darkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
+    <div
+      className={`transition-all ${
+        darkMode ? "bg-gray-900 text-white" : "bg-white text-black"
+      }`}
+    >
       {children}
     </div>
   </>
@@ -33,27 +37,48 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className={`min-h-screen ${darkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
+      <div
+        className={`min-h-screen ${
+          darkMode ? "bg-gray-900 text-white" : "bg-white text-black"
+        }`}
+      >
         <Routes>
           <Route
             path="/"
-            element={<Layout darkMode={darkMode} darkModeToggle={darkModeToggle}><Hero /></Layout>}
+            element={
+              <Layout darkMode={darkMode} darkModeToggle={darkModeToggle}>
+                <Hero />
+              </Layout>
+            }
           />
           <Route
             path="/about"
-            element={<Layout darkMode={darkMode} darkModeToggle={darkModeToggle}><About /></Layout>}
+            element={
+              <Layout darkMode={darkMode} darkModeToggle={darkModeToggle}>
+                <About />
+              </Layout>
+            }
           />
           <Route
             path="/propertylistings"
-            element={<Layout darkMode={darkMode} darkModeToggle={darkModeToggle}><Product /></Layout>}
+            element={
+              <Layout darkMode={darkMode} darkModeToggle={darkModeToggle}>
+                <Product />
+              </Layout>
+            }
           />
-          <Route
-            path="/property/:id"
-            element={<PropertyDetailsPage />}
-          />
-          <Route
-            path="/blogPage"
+          <Route path="/property/:id" element={<PropertyDetailsPage />} />
+          {/* <Route
+            path="/blogpage"
             element={<Layout darkMode={darkMode} darkModeToggle={darkModeToggle}><Services /></Layout>}
+          /> */}
+          <Route
+            path="/blogpage"
+            element={
+              <Layout darkMode={darkMode} darkModeToggle={darkModeToggle}>
+                <BlogPage />
+              </Layout>
+            }
           />
         </Routes>
 
