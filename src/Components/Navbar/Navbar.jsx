@@ -86,7 +86,7 @@ function Navbar({ darkMode, darkModeToggle }) {
           {/* Dark Mode Toggle */}
           <button
             onClick={darkModeToggle}
-            className={`md:w-16 w-4  mr-2 md:h-16 md:mr-9 rounded-full text-3xl transition-colors duration-200 ${
+            className={`md:w-16 w-4  mr-5 md:h-16 md:mr-9 rounded-full text-3xl transition-colors duration-200 ${
               darkMode ? "text-white" : "text-gray-800"
             }`}
           >
