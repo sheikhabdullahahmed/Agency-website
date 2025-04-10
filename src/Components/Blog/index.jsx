@@ -24,7 +24,7 @@ const blogs = [
     price: "Rs: 25,000",
     rentPrice: "Rs: 25,000",
   },
-  
+
   {
     id: 3,
     title: "The Real Estate Corner",
@@ -70,12 +70,12 @@ const blogs = [
     rentPrice: "Rs : 30,000",
   },
 ];
-  // other blog entries..
+// other blog entries..
 
 const BlogPage = () => {
   // Define states for search and filter
-  const [search, setSearch] = useState("");  // For the search input
-  const [filterType, setFilterType] = useState("");  // For the dropdown filter
+  const [search, setSearch] = useState(""); // For the search input
+  const [filterType, setFilterType] = useState(""); // For the dropdown filter
   const [expandedBlog, setExpandedBlog] = useState(null);
 
   // Filter the blogs based on the search input and filter type
@@ -84,14 +84,16 @@ const BlogPage = () => {
       blog.title.toLowerCase().includes(search.toLowerCase()) ||
       blog.description.toLowerCase().includes(search.toLowerCase());
 
-    const matchesFilterType = filterType ? blog.buttonType === filterType : true;
+    const matchesFilterType = filterType
+      ? blog.buttonType === filterType
+      : true;
 
     return matchesSearch && matchesFilterType;
   });
 
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="flex flex-col md:flex-row gap-6 mb-10">
+      <div className="flex flex-col md:flex-row gap-6  mx-3 lg:mx-[12rem] mt-24 md:mt-28">
         {/* Search Input */}
         <input
           type="text"
@@ -113,7 +115,7 @@ const BlogPage = () => {
         </select>
       </div>
 
-      <div className="container mx-auto px-4 py-12 flex-grow">
+      <div className="container mx-auto px-4 py-7 flex-grow">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Map over filtered blogs */}
           {filteredBlogs.map((blog) => (
@@ -127,15 +129,17 @@ const BlogPage = () => {
                 className="w-full h-48 object-cover"
               />
               <div className="p-4 flex flex-col flex-grow">
-                <h2 className="text-lg sm:text-xl font-semibold text-blue-950">
+                <h2 className="text-lg sm:text-xl font-bold text-blue-950">
                   {blog.title}
                 </h2>
-                <p className="text-gray-600 mt-2 text-sm sm:text-base">
-                  {expandedBlog === blog.id ? blog.fullContent : blog.description}
+                <p className="text-gray-600 mt-2 text-base">
+                  {expandedBlog === blog.id
+                    ? blog.fullContent
+                    : blog.description}
                 </p>
 
                 <button
-                  className="mt-4 px-4 py-2 font-semibold bg-green-500 hover:text-white hover:border-0 text-white border-2 rounded w-full text-sm sm:text-base"
+                  className="md:mt-4 mt-3 px-4 py-2 font-bold bg-green-500  text-white border-2 rounded w-full text-sm sm:text-base"
                   onClick={() =>
                     setExpandedBlog(expandedBlog === blog.id ? null : blog.id)
                   }
@@ -144,13 +148,13 @@ const BlogPage = () => {
                 </button>
 
                 {/* Rent and Price Buttons */}
-                <div className="mt-4 flex flex-col sm:flex-row flex-wrap gap-3">
+                <div className="mt-4 flex flex-col sm:flex-row md:pl-14   flex-wrap sm:items-center gap-3">
                   {blog.buttonType === "Sale" && blog.price !== "N/A" && (
                     <>
-                      <button className="px-4 py-2 font-semibold bg-white hover:bg-green-500 hover:text-white hover:border-0 text-green-500 border-2 rounded w-full sm:w-auto text-sm sm:text-base">
+                      <button className="w-full sm:w-auto px-10 py-2 font-bold bg-white hover:bg-green-500 hover:text-white text-green-500 border-2 rounded text-base sm:text-lg">
                         For Sale
                       </button>
-                      <button className="px-4 py-2 font-semibold bg-white text-green-500 border-2 rounded w-full sm:w-auto text-sm sm:text-base hover:bg-green-500 hover:text-white hover:border-0">
+                      <button className="w-full sm:w-auto px-10 py-2 font-semibold bg-white text-green-500 border-2 rounded text-base sm:text-lg hover:bg-green-500 hover:text-white">
                         {blog.price}
                       </button>
                     </>
@@ -158,10 +162,10 @@ const BlogPage = () => {
 
                   {blog.buttonType === "Rent" && blog.rentPrice !== "N/A" && (
                     <>
-                      <button className="px-4 py-2 font-semibold bg-white text-green-500 border-2 rounded w-full sm:w-auto text-sm sm:text-base hover:bg-green-500 hover:text-white hover:border-0">
+                      <button className="w-full sm:w-auto px-10 py-2 font-bold bg-white text-green-500 border-2 rounded text-base sm:text-lg hover:bg-green-500 hover:text-white">
                         For Rent
                       </button>
-                      <button className="px-4 py-2 font-semibold bg-white text-green-500 border-2 rounded w-full sm:w-auto text-sm sm:text-base hover:bg-green-500 hover:text-white hover:border-0">
+                      <button className="w-full sm:w-auto px-8 py-2 font-semibold bg-white text-green-500 border-2 rounded text-base sm:text-lg hover:bg-green-500 hover:text-white">
                         {blog.rentPrice}
                       </button>
                     </>

@@ -73,7 +73,7 @@ function App() {
             element={<Layout darkMode={darkMode} darkModeToggle={darkModeToggle}><Services /></Layout>}
           /> */}
           <Route
-            path="/blogpage"
+            path="/sell-property"
             element={
               <Layout darkMode={darkMode} darkModeToggle={darkModeToggle}>
                 <BlogPage />
