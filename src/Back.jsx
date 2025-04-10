@@ -5,7 +5,7 @@ function Back({ name, title, cover }) {
     <div className="back">
       <img src={cover} alt="Cover" />
       <h1>{name}</h1>
-      <p>{title}</p>
+      <p>{title}</p> 
     </div>
   );
 }
