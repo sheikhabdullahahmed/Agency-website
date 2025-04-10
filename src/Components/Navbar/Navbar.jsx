@@ -73,7 +73,7 @@ function Navbar({ darkMode, darkModeToggle }) {
               </Link>
             </li>
             <li className="relative group">
-              <Link
+              <Link 
                 to="/sell-property"
                 className="block py-2 px-4 transition-colors duration-200"
                 onClick={() => setMenuOpen(false)}
